@@ -1,0 +1,2223 @@
+[
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-001: Verify the basket count increases by 1",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-101",
+        "positive"
+      ],
+      "description": "Preconditions:\n- I am viewing a book that is in stock\n\nTraces: US-101/AC1"
+    },
+    "steps": [
+      {
+        "action": "I click \"Add to basket\"",
+        "data": "",
+        "result": "The basket count increases by 1"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-002: A valid quantity within the allowed range is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-101",
+        "positive"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-101/AC2"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Add a book to the basket' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a typical valid quantity",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "The value is accepted and the journey continues"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-003: Quantity of 0 is rejected (below minimum 1)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-101",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-101/AC2"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Add a book to the basket' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a quantity of 0",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "A validation message explains the limit"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-004: Quantity of 1 is accepted (minimum)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-101",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-101/AC2"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Add a book to the basket' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a quantity of 1",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "The value is accepted"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-005: Quantity of 10 is accepted (maximum)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-101",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-101/AC2"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Add a book to the basket' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a quantity of 10",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "The value is accepted"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-006: Quantity of 11 is rejected (above maximum 10)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-101",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-101/AC2"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Add a book to the basket' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a quantity of 11",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "A validation message explains the limit"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-007: Rule is enforced: A book that is out of stock cannot be added and the page shows an \"...",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-101",
+        "negative"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-101/AC3"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Add a book to the basket' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Attempt the action the rule forbids",
+        "data": "",
+        "result": "The message \"Out of stock\" is shown"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-008: Verify the basket is kept for my session and I am asked to log in at checkout",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-101",
+        "positive"
+      ],
+      "description": "Preconditions:\n- I am not logged in\n\nTraces: US-101/AC4"
+    },
+    "steps": [
+      {
+        "action": "I add a book",
+        "data": "",
+        "result": "The basket is kept for my session and I am asked to log in at checkout"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-009: Protected steps of 'Add a book to the basket' require login",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-101",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-101/AC4"
+    },
+    "steps": [
+      {
+        "action": "Make sure no user is logged in",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Go directly to the 'Add a book to the basket' pages",
+        "data": "",
+        "result": "The user is asked to log in and no protected data is shown"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-010: Verify my account is created and I am logged in",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-102",
+        "positive"
+      ],
+      "description": "Preconditions:\n- I am on the registration page\n\nTraces: US-102/AC1"
+    },
+    "steps": [
+      {
+        "action": "I submit a valid email address and password",
+        "data": "",
+        "result": "My account is created and I am logged in"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-011: Injection payloads in the email address field are rejected or safely escaped",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-102",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC1, US-102/AC3"
+    },
+    "steps": [
+      {
+        "action": "Enter <script>alert(1)</script> and ' OR '1'='1 in the email address field",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "Input is rejected or rendered as plain text; no script runs, no server error"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-012: Injection payloads in the password field are rejected or safely escaped",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-102",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC1, US-102/AC2, US-102/AC5"
+    },
+    "steps": [
+      {
+        "action": "Enter <script>alert(1)</script> and ' OR '1'='1 in the password field",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "Input is rejected or rendered as plain text; no script runs, no server error"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-013: A valid password within the allowed range is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-102",
+        "positive"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC2"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Register an account' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a typical valid password",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "The value is accepted and the journey continues"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-014: Password with 7 characters is rejected (below minimum 8)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-102",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC2"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Register an account' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a password with 7 characters",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "A validation message explains the limit"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-015: Password with 8 characters is accepted (minimum)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-102",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC2"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Register an account' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a password with 8 characters",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "The value is accepted"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-016: Password with 64 characters is accepted (maximum)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-102",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC2"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Register an account' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a password with 64 characters",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "The value is accepted"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-017: Password with 65 characters is rejected (above maximum 64)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-102",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC2"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Register an account' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a password with 65 characters",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "A validation message explains the limit"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-018: Rule is enforced: An email address that is already registered is rejected with the me...",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-102",
+        "negative"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC3"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Register an account' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Attempt the action the rule forbids",
+        "data": "",
+        "result": "The message \"An account with this email already exists\" is shown"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-019: A valid display name within the allowed range is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-102",
+        "positive"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC4"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Register an account' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a typical valid display name",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "The value is accepted and the journey continues"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-020: Display name with 30 characters is accepted (maximum)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-102",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC4"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Register an account' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a display name with 30 characters",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "The value is accepted"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-021: Display name with 31 characters is rejected (above maximum 30)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-102",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC4"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Register an account' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Enter a display name with 31 characters",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "A validation message explains the limit"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-022: Submitting without display name is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-102",
+        "negative"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC4"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'Register an account' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Leave display name empty",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "A validation message says display name is required"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-023: Injection payloads in the display name field are rejected or safely escaped",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-102",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC4"
+    },
+    "steps": [
+      {
+        "action": "Enter <script>alert(1)</script> and ' OR '1'='1 in the display name field",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": "Input is rejected or rendered as plain text; no script runs, no server error"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-024: Password is masked on screen and never echoed back",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-102",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-102/AC5"
+    },
+    "steps": [
+      {
+        "action": "Type a password into the form",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Submit",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Check the page and any emails sent",
+        "data": "",
+        "result": "The password is masked while typing and never appears in plain text"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-025: Verify I see 3 orders listed with the newest first",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-103",
+        "positive"
+      ],
+      "description": "Preconditions:\n- I am logged in and have placed 3 orders\n\nTraces: US-103/AC1"
+    },
+    "steps": [
+      {
+        "action": "I open \"My orders\"",
+        "data": "",
+        "result": "I see 3 orders listed with the newest first"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-026: Protected steps of 'View order history' require login",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-103",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-103/AC1, US-103/AC2"
+    },
+    "steps": [
+      {
+        "action": "Make sure no user is logged in",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Go directly to the 'View order history' pages",
+        "data": "",
+        "result": "The user is asked to log in and no protected data is shown"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-027: Verify I see at most 20 orders per page and a link to the next page",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-103",
+        "positive"
+      ],
+      "description": "Preconditions:\n- I am logged in and have placed 25 orders\n\nTraces: US-103/AC2"
+    },
+    "steps": [
+      {
+        "action": "I open \"My orders\"",
+        "data": "",
+        "result": "I see at most 20 orders per page and a link to the next page"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-028: Behaviour at 20 orders (maximum)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-103",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-103/AC2"
+    },
+    "steps": [
+      {
+        "action": "Set up data so the scenario involves 20 orders",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "I open \"My orders\"",
+        "data": "",
+        "result": "The rule holds exactly at the limit"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-029: Behaviour at 21 orders (above maximum 20)",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-103",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-103/AC2"
+    },
+    "steps": [
+      {
+        "action": "Set up data so the scenario involves 21 orders",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "I open \"My orders\"",
+        "data": "",
+        "result": "The limit is enforced: I see at most 20 orders per page and a link to the next page"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-030: Verify I see an \"Access denied\" message and no order details",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-103",
+        "positive"
+      ],
+      "description": "Preconditions:\n- I am logged in as one customer\n\nTraces: US-103/AC3"
+    },
+    "steps": [
+      {
+        "action": "I open the order page URL of a different customer",
+        "data": "",
+        "result": "I see an \"Access denied\" message and no order details"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-031: Rule is enforced: Another customer's order is not visible",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "US-103",
+        "negative"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-103/AC3"
+    },
+    "steps": [
+      {
+        "action": "Go to the 'View order history' journey",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Attempt the action the rule forbids",
+        "data": "",
+        "result": "The message \"Access denied\" is shown"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-032: Changing the record id in the URL does not expose another customer's data",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "US-103",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: US-103/AC3"
+    },
+    "steps": [
+      {
+        "action": "Log in as customer A",
+        "data": "",
+        "result": ""
+      },
+      {
+        "action": "Open a URL containing customer B's record id",
+        "data": "",
+        "result": "Access is denied and no data belonging to customer B is shown"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-033: Health check succeeds with valid input",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "positive"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: GET /health, GET /health 200"
+    },
+    "steps": [
+      {
+        "action": "Send GET /health with valid parameters and body",
+        "data": "{\"method\": \"GET\", \"path\": \"/health\"}",
+        "result": "Response status is 200"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-034: List books succeeds with valid input",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "positive"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: GET /books, GET /books 200"
+    },
+    "steps": [
+      {
+        "action": "Send GET /books with valid parameters and body",
+        "data": "{\"method\": \"GET\", \"path\": \"/books\"}",
+        "result": "Response status is 200"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-035: List books: query limit at minimum (1) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: GET /books, GET /books 200"
+    },
+    "steps": [
+      {
+        "action": "Send GET /books with limit=1",
+        "data": "{\"method\": \"GET\", \"path\": \"/books\", \"query\": {\"limit\": 1}}",
+        "result": "Response status is 200"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-036: List books: query limit below minimum (1) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: GET /books, GET /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send GET /books with limit=0",
+        "data": "{\"method\": \"GET\", \"path\": \"/books\", \"query\": {\"limit\": 0}}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-037: List books: query limit at maximum (100) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: GET /books, GET /books 200"
+    },
+    "steps": [
+      {
+        "action": "Send GET /books with limit=100",
+        "data": "{\"method\": \"GET\", \"path\": \"/books\", \"query\": {\"limit\": 100}}",
+        "result": "Response status is 200"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-038: List books: query limit above maximum (100) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: GET /books, GET /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send GET /books with limit=101",
+        "data": "{\"method\": \"GET\", \"path\": \"/books\", \"query\": {\"limit\": 101}}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-039: Add a book to the catalogue succeeds with valid input",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "positive"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with valid parameters and body",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-040: Add a book to the catalogue is rejected when required field 'title' is missing",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books without 'title' in the body",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-041: Add a book to the catalogue is rejected when 'title' has the wrong type",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with a int for 'title'",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": 12345, \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-042: Add a book to the catalogue is rejected when required field 'author' is missing",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books without 'author' in the body",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-043: Add a book to the catalogue is rejected when 'author' has the wrong type",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with a int for 'author'",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": 12345, \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-044: Add a book to the catalogue is rejected when required field 'price' is missing",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books without 'price' in the body",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-045: Add a book to the catalogue is rejected when 'price' has the wrong type",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with a str for 'price'",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": \"not-a-number\", \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-046: Add a book to the catalogue is rejected when 'format' is not an allowed value",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with an unknown 'format'",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 25, \"format\": \"not-a-valid-option\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-047: Add a book to the catalogue: 'title' at minimum length (1) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'title' at minimum length",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"x\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-048: Add a book to the catalogue: 'title' below minimum length (1) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'title' below minimum length",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-049: Add a book to the catalogue: 'title' at maximum length (120) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'title' at maximum length",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-050: Add a book to the catalogue: 'title' above maximum length (120) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'title' above maximum length",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-051: Add a book to the catalogue: 'author' at minimum length (1) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'author' at minimum length",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"x\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-052: Add a book to the catalogue: 'author' below minimum length (1) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'author' below minimum length",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-053: Add a book to the catalogue: 'author' at maximum length (80) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'author' at maximum length",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-054: Add a book to the catalogue: 'author' above maximum length (80) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'author' above maximum length",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-055: Add a book to the catalogue: 'price' at minimum (0.01) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'price' at minimum",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 0.01, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-056: Add a book to the catalogue: 'price' below minimum (0.01) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'price' below minimum",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 0.0, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-057: Add a book to the catalogue: 'price' at maximum (1000) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'price' at maximum",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 1000, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-058: Add a book to the catalogue: 'price' above maximum (1000) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'price' above maximum",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 1000.01, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-059: Add a book to the catalogue: 'stock' at minimum (0) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'stock' at minimum",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 0, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-060: Add a book to the catalogue: 'stock' below minimum (0) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'stock' below minimum",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": -1, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-061: Add a book to the catalogue: 'stock' at maximum (10000) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'stock' at maximum",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 10000, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-062: Add a book to the catalogue: 'stock' above maximum (10000) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with 'stock' above maximum",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 10001, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-063: Add a book to the catalogue is refused without a token",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: POST /books, POST /books 401"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books without a token",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}}",
+        "result": "Response status is 401"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-064: Add a book to the catalogue is refused with an invalid token",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: POST /books, POST /books 401"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with an invalid token",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Wuthering Heights\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"invalid\"}",
+        "result": "Response status is 401"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-065: Add a book to the catalogue handles an injection payload in 'title' without a server error",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "security"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /books, POST /books 201, POST /books 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /books with an SQL injection string in 'title'",
+        "data": "{\"method\": \"POST\", \"path\": \"/books\", \"body\": {\"title\": \"Robert'); DROP TABLE books;--\", \"author\": \"Emily Bronte\", \"price\": 8.99, \"stock\": 25, \"format\": \"paperback\"}, \"auth\": \"valid\"}",
+        "result": "Response status is one of [201, 400] (never a server error)"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-066: Get a book by id succeeds with valid input",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "positive"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: GET /books/{bookId}, GET /books/{bookId} 200"
+    },
+    "steps": [
+      {
+        "action": "Send GET /books/{bookId} with valid parameters and body",
+        "data": "{\"method\": \"GET\", \"path\": \"/books/{bookId}\", \"path_params\": {\"bookId\": 1}}",
+        "result": "Response status is 200"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-067: Get a book by id returns 404 for a non-existent bookId",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: GET /books/{bookId}, GET /books/{bookId} 404"
+    },
+    "steps": [
+      {
+        "action": "Send GET /books/{bookId} with bookId=999999",
+        "data": "{\"method\": \"GET\", \"path\": \"/books/{bookId}\", \"path_params\": {\"bookId\": 999999}}",
+        "result": "Response status is 404"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-068: Remove a book from the catalogue succeeds with valid input",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "positive"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: DELETE /books/{bookId}, DELETE /books/{bookId} 204"
+    },
+    "steps": [
+      {
+        "action": "Send DELETE /books/{bookId} with valid parameters and body",
+        "data": "{\"method\": \"DELETE\", \"path\": \"/books/{bookId}\", \"path_params\": {\"bookId\": 2}, \"auth\": \"valid\"}",
+        "result": "Response status is 204"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-069: Remove a book from the catalogue returns 404 for a non-existent bookId",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: DELETE /books/{bookId}, DELETE /books/{bookId} 404"
+    },
+    "steps": [
+      {
+        "action": "Send DELETE /books/{bookId} with bookId=999999",
+        "data": "{\"method\": \"DELETE\", \"path\": \"/books/{bookId}\", \"path_params\": {\"bookId\": 999999}, \"auth\": \"valid\"}",
+        "result": "Response status is 404"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-070: Remove a book from the catalogue is refused without a token",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: DELETE /books/{bookId}, DELETE /books/{bookId} 401"
+    },
+    "steps": [
+      {
+        "action": "Send DELETE /books/{bookId} without a token",
+        "data": "{\"method\": \"DELETE\", \"path\": \"/books/{bookId}\", \"path_params\": {\"bookId\": 2}}",
+        "result": "Response status is 401"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-071: Remove a book from the catalogue is refused with an invalid token",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: DELETE /books/{bookId}, DELETE /books/{bookId} 401"
+    },
+    "steps": [
+      {
+        "action": "Send DELETE /books/{bookId} with an invalid token",
+        "data": "{\"method\": \"DELETE\", \"path\": \"/books/{bookId}\", \"path_params\": {\"bookId\": 2}, \"auth\": \"invalid\"}",
+        "result": "Response status is 401"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-072: Place an order for a book succeeds with valid input",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "positive"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /orders, POST /orders 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders with valid parameters and body",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": 1, \"quantity\": 2}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-073: Place an order for a book is rejected when required field 'book_id' is missing",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /orders, POST /orders 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders without 'book_id' in the body",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"quantity\": 2}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-074: Place an order for a book is rejected when 'book_id' has the wrong type",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /orders, POST /orders 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders with a str for 'book_id'",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": \"not-a-number\", \"quantity\": 2}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-075: Place an order for a book is rejected when required field 'quantity' is missing",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /orders, POST /orders 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders without 'quantity' in the body",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": 1}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-076: Place an order for a book is rejected when 'quantity' has the wrong type",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /orders, POST /orders 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders with a str for 'quantity'",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": 1, \"quantity\": \"not-a-number\"}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-077: Place an order for a book: 'book_id' below minimum (1) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /orders, POST /orders 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders with 'book_id' below minimum",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": 0, \"quantity\": 2}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-078: Place an order for a book: 'quantity' at minimum (1) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /orders, POST /orders 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders with 'quantity' at minimum",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": 1, \"quantity\": 1}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-079: Place an order for a book: 'quantity' below minimum (1) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /orders, POST /orders 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders with 'quantity' below minimum",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": 1, \"quantity\": 0}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-080: Place an order for a book: 'quantity' at maximum (10) is accepted",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /orders, POST /orders 201"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders with 'quantity' at maximum",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": 1, \"quantity\": 10}, \"auth\": \"valid\"}",
+        "result": "Response status is 201"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-081: Place an order for a book: 'quantity' above maximum (10) is rejected",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "boundary"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /orders, POST /orders 400"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders with 'quantity' above maximum",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": 1, \"quantity\": 11}, \"auth\": \"valid\"}",
+        "result": "Response status is 400"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-082: Place an order for a book returns 404 when 'book_id' does not exist",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "labels": [
+        "api",
+        "negative"
+      ],
+      "description": "Preconditions:\n- A valid bearer token is available\n\nTraces: POST /orders, POST /orders 404"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders with 'book_id'=999999",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": 999999, \"quantity\": 2}, \"auth\": \"valid\"}",
+        "result": "Response status is 404"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-083: Place an order for a book is refused without a token",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: POST /orders, POST /orders 401"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders without a token",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": 1, \"quantity\": 2}}",
+        "result": "Response status is 401"
+      }
+    ]
+  },
+  {
+    "testtype": "Manual",
+    "fields": {
+      "summary": "TC-084: Place an order for a book is refused with an invalid token",
+      "project": {
+        "key": "BOOK"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "labels": [
+        "api",
+        "security"
+      ],
+      "description": "Preconditions:\n- none\n\nTraces: POST /orders, POST /orders 401"
+    },
+    "steps": [
+      {
+        "action": "Send POST /orders with an invalid token",
+        "data": "{\"method\": \"POST\", \"path\": \"/orders\", \"body\": {\"book_id\": 1, \"quantity\": 2}, \"auth\": \"invalid\"}",
+        "result": "Response status is 401"
+      }
+    ]
+  }
+]

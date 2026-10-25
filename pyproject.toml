@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-testcase-generator"
+version = "0.1.0"
+description = "Generate, evaluate and export test cases from user stories and OpenAPI specs, with runnable pytest API tests and Playwright skeletons."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Karthick Sivagnanam" }]
+requires-python = ">=3.11"
+keywords = ["testing", "test-generation", "openapi", "pytest", "playwright", "llm", "quality-engineering"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = [
+  "pyyaml>=6.0",
+  "jinja2>=3.1",
+  "jsonschema>=4.21",
+  "pytest>=8.0",  # generated API suites are executed with pytest during evaluation
+]
+
+[project.optional-dependencies]
+openai = ["openai>=1.40"]
+bedrock = ["boto3>=1.34"]
+dev = [
+  "pytest-cov>=5.0",
+  "ruff>=0.6",
+]
+
+[project.scripts]
+testgen = "ai_testgen.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ai_testgen"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --cov=ai_testgen --cov-report=term-missing"
+
+[tool.coverage.run]
+branch = true
+source = ["ai_testgen"]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+extend-exclude = ["sample-output"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF", "PT", "C4"]
+
+[tool.ruff.format]
+quote-style = "double"

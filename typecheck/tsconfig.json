@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": [],
+    "paths": {
+      "@playwright/test": ["./node_modules/@playwright/test"]
+    }
+  },
+  "include": ["../sample-output/tests/playwright/**/*.spec.ts"]
+}

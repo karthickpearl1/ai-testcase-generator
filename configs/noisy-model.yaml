@@ -1,0 +1,12 @@
+# Simulates a careless model: some malformed cases, near-duplicates, and API tests whose
+# assertions accept any documented status code. Every test still passes, which is exactly
+# why execution pass rate alone is not a useful quality signal.
+extends: ../testgen.yaml
+name: noisy-model
+
+provider:
+  model: mock-rules-noisy
+  options:
+    invalid_rate: 0.1
+    duplicate_rate: 0.15
+    weak_assertions: true

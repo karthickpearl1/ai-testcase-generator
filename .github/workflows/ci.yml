@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - run: pip install "ruff>=0.6"
+      - run: ruff check .
+      - run: ruff format --check .
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: pytest --cov-report=xml
+      - uses: actions/upload-artifact@v7
+        if: matrix.python-version == '3.13'
+        with:
+          name: coverage
+          path: coverage.xml
+
+  quality-gate:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -e .
+
+      - name: Generate, execute against the demo API and gate
+        run: testgen run --gate -o out/baseline
+
+      - name: Publish report to the job summary
+        if: always()
+        run: cat out/baseline/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      # Guard the guard: a noisy model with weak assertions must be rejected (exit code 1),
+      # even though every test it generates passes.
+      - name: Gate self-test
+        run: |
+          set +e
+          testgen run -c configs/noisy-model.yaml -o out/noisy-model --gate
+          code=$?
+          set -e
+          if [ "$code" -ne 1 ]; then
+            echo "::error::Expected the gate to reject the noisy model with exit 1, got $code"
+            exit 1
+          fi
+          echo "Gate correctly rejected the noisy model."
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: testgen-output
+          path: out/
+
+  playwright-typecheck:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: typecheck
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: typecheck/package-lock.json
+      - run: npm ci
+      - name: Type-check generated Playwright skeletons
+        run: npm run typecheck

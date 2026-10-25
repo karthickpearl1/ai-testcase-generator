@@ -1,0 +1,2874 @@
+{
+  "provider": "mock",
+  "model": "mock-rules-v1",
+  "summary": {
+    "stories": 3,
+    "acceptance_criteria": 12,
+    "endpoints": 6,
+    "raw_cases": 89,
+    "rejected_cases": 0,
+    "schema_validity": 1.0,
+    "duplicates_removed": 5,
+    "final_cases": 84,
+    "api_cases": 52,
+    "model_calls": 9,
+    "input_tokens": 5574,
+    "output_tokens": 13318,
+    "model_latency_ms": 109522.4
+  },
+  "cases": [
+    {
+      "title": "Verify the basket count increases by 1",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "I click \"Add to basket\""
+      ],
+      "expected": "The basket count increases by 1",
+      "traces": [
+        "US-101/AC1"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-101",
+      "preconditions": [
+        "I am viewing a book that is in stock"
+      ],
+      "tags": [
+        "US-101",
+        "positive"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-001"
+    },
+    {
+      "title": "A valid quantity within the allowed range is accepted",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "Go to the 'Add a book to the basket' journey",
+        "Enter a typical valid quantity",
+        "Submit"
+      ],
+      "expected": "The value is accepted and the journey continues",
+      "traces": [
+        "US-101/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-101",
+      "preconditions": [],
+      "tags": [
+        "US-101",
+        "positive"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-002"
+    },
+    {
+      "title": "Quantity of 0 is rejected (below minimum 1)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Add a book to the basket' journey",
+        "Enter a quantity of 0",
+        "Submit"
+      ],
+      "expected": "A validation message explains the limit",
+      "traces": [
+        "US-101/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-101",
+      "preconditions": [],
+      "tags": [
+        "US-101",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-003"
+    },
+    {
+      "title": "Quantity of 1 is accepted (minimum)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Add a book to the basket' journey",
+        "Enter a quantity of 1",
+        "Submit"
+      ],
+      "expected": "The value is accepted",
+      "traces": [
+        "US-101/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-101",
+      "preconditions": [],
+      "tags": [
+        "US-101",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-004"
+    },
+    {
+      "title": "Quantity of 10 is accepted (maximum)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Add a book to the basket' journey",
+        "Enter a quantity of 10",
+        "Submit"
+      ],
+      "expected": "The value is accepted",
+      "traces": [
+        "US-101/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-101",
+      "preconditions": [],
+      "tags": [
+        "US-101",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-005"
+    },
+    {
+      "title": "Quantity of 11 is rejected (above maximum 10)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Add a book to the basket' journey",
+        "Enter a quantity of 11",
+        "Submit"
+      ],
+      "expected": "A validation message explains the limit",
+      "traces": [
+        "US-101/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-101",
+      "preconditions": [],
+      "tags": [
+        "US-101",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-006"
+    },
+    {
+      "title": "Rule is enforced: A book that is out of stock cannot be added and the page shows an \"...",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Add a book to the basket' journey",
+        "Attempt the action the rule forbids"
+      ],
+      "expected": "The message \"Out of stock\" is shown",
+      "traces": [
+        "US-101/AC3"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-101",
+      "preconditions": [],
+      "tags": [
+        "US-101",
+        "negative"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-007"
+    },
+    {
+      "title": "Verify the basket is kept for my session and I am asked to log in at checkout",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "I add a book"
+      ],
+      "expected": "The basket is kept for my session and I am asked to log in at checkout",
+      "traces": [
+        "US-101/AC4"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-101",
+      "preconditions": [
+        "I am not logged in"
+      ],
+      "tags": [
+        "US-101",
+        "positive"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-008"
+    },
+    {
+      "title": "Protected steps of 'Add a book to the basket' require login",
+      "type": "security",
+      "priority": "high",
+      "steps": [
+        "Make sure no user is logged in",
+        "Go directly to the 'Add a book to the basket' pages"
+      ],
+      "expected": "The user is asked to log in and no protected data is shown",
+      "traces": [
+        "US-101/AC4"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-101",
+      "preconditions": [],
+      "tags": [
+        "US-101",
+        "security"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-009"
+    },
+    {
+      "title": "Verify my account is created and I am logged in",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "I submit a valid email address and password"
+      ],
+      "expected": "My account is created and I am logged in",
+      "traces": [
+        "US-102/AC1"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [
+        "I am on the registration page"
+      ],
+      "tags": [
+        "US-102",
+        "positive"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-010"
+    },
+    {
+      "title": "Injection payloads in the email address field are rejected or safely escaped",
+      "type": "security",
+      "priority": "medium",
+      "steps": [
+        "Enter <script>alert(1)</script> and ' OR '1'='1 in the email address field",
+        "Submit"
+      ],
+      "expected": "Input is rejected or rendered as plain text; no script runs, no server error",
+      "traces": [
+        "US-102/AC1",
+        "US-102/AC3"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "security"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-011"
+    },
+    {
+      "title": "Injection payloads in the password field are rejected or safely escaped",
+      "type": "security",
+      "priority": "medium",
+      "steps": [
+        "Enter <script>alert(1)</script> and ' OR '1'='1 in the password field",
+        "Submit"
+      ],
+      "expected": "Input is rejected or rendered as plain text; no script runs, no server error",
+      "traces": [
+        "US-102/AC1",
+        "US-102/AC2",
+        "US-102/AC5"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "security"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-012"
+    },
+    {
+      "title": "A valid password within the allowed range is accepted",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "Go to the 'Register an account' journey",
+        "Enter a typical valid password",
+        "Submit"
+      ],
+      "expected": "The value is accepted and the journey continues",
+      "traces": [
+        "US-102/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "positive"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-013"
+    },
+    {
+      "title": "Password with 7 characters is rejected (below minimum 8)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Register an account' journey",
+        "Enter a password with 7 characters",
+        "Submit"
+      ],
+      "expected": "A validation message explains the limit",
+      "traces": [
+        "US-102/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-014"
+    },
+    {
+      "title": "Password with 8 characters is accepted (minimum)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Register an account' journey",
+        "Enter a password with 8 characters",
+        "Submit"
+      ],
+      "expected": "The value is accepted",
+      "traces": [
+        "US-102/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-015"
+    },
+    {
+      "title": "Password with 64 characters is accepted (maximum)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Register an account' journey",
+        "Enter a password with 64 characters",
+        "Submit"
+      ],
+      "expected": "The value is accepted",
+      "traces": [
+        "US-102/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-016"
+    },
+    {
+      "title": "Password with 65 characters is rejected (above maximum 64)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Register an account' journey",
+        "Enter a password with 65 characters",
+        "Submit"
+      ],
+      "expected": "A validation message explains the limit",
+      "traces": [
+        "US-102/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-017"
+    },
+    {
+      "title": "Rule is enforced: An email address that is already registered is rejected with the me...",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Register an account' journey",
+        "Attempt the action the rule forbids"
+      ],
+      "expected": "The message \"An account with this email already exists\" is shown",
+      "traces": [
+        "US-102/AC3"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "negative"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-018"
+    },
+    {
+      "title": "A valid display name within the allowed range is accepted",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "Go to the 'Register an account' journey",
+        "Enter a typical valid display name",
+        "Submit"
+      ],
+      "expected": "The value is accepted and the journey continues",
+      "traces": [
+        "US-102/AC4"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "positive"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-019"
+    },
+    {
+      "title": "Display name with 30 characters is accepted (maximum)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Register an account' journey",
+        "Enter a display name with 30 characters",
+        "Submit"
+      ],
+      "expected": "The value is accepted",
+      "traces": [
+        "US-102/AC4"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-020"
+    },
+    {
+      "title": "Display name with 31 characters is rejected (above maximum 30)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Register an account' journey",
+        "Enter a display name with 31 characters",
+        "Submit"
+      ],
+      "expected": "A validation message explains the limit",
+      "traces": [
+        "US-102/AC4"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-021"
+    },
+    {
+      "title": "Submitting without display name is rejected",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'Register an account' journey",
+        "Leave display name empty",
+        "Submit"
+      ],
+      "expected": "A validation message says display name is required",
+      "traces": [
+        "US-102/AC4"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "negative"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-022"
+    },
+    {
+      "title": "Injection payloads in the display name field are rejected or safely escaped",
+      "type": "security",
+      "priority": "medium",
+      "steps": [
+        "Enter <script>alert(1)</script> and ' OR '1'='1 in the display name field",
+        "Submit"
+      ],
+      "expected": "Input is rejected or rendered as plain text; no script runs, no server error",
+      "traces": [
+        "US-102/AC4"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "security"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-023"
+    },
+    {
+      "title": "Password is masked on screen and never echoed back",
+      "type": "security",
+      "priority": "high",
+      "steps": [
+        "Type a password into the form",
+        "Submit",
+        "Check the page and any emails sent"
+      ],
+      "expected": "The password is masked while typing and never appears in plain text",
+      "traces": [
+        "US-102/AC5"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-102",
+      "preconditions": [],
+      "tags": [
+        "US-102",
+        "security"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-024"
+    },
+    {
+      "title": "Verify I see 3 orders listed with the newest first",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "I open \"My orders\""
+      ],
+      "expected": "I see 3 orders listed with the newest first",
+      "traces": [
+        "US-103/AC1"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-103",
+      "preconditions": [
+        "I am logged in and have placed 3 orders"
+      ],
+      "tags": [
+        "US-103",
+        "positive"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-025"
+    },
+    {
+      "title": "Protected steps of 'View order history' require login",
+      "type": "security",
+      "priority": "high",
+      "steps": [
+        "Make sure no user is logged in",
+        "Go directly to the 'View order history' pages"
+      ],
+      "expected": "The user is asked to log in and no protected data is shown",
+      "traces": [
+        "US-103/AC1",
+        "US-103/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-103",
+      "preconditions": [],
+      "tags": [
+        "US-103",
+        "security"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-026"
+    },
+    {
+      "title": "Verify I see at most 20 orders per page and a link to the next page",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "I open \"My orders\""
+      ],
+      "expected": "I see at most 20 orders per page and a link to the next page",
+      "traces": [
+        "US-103/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-103",
+      "preconditions": [
+        "I am logged in and have placed 25 orders"
+      ],
+      "tags": [
+        "US-103",
+        "positive"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-027"
+    },
+    {
+      "title": "Behaviour at 20 orders (maximum)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Set up data so the scenario involves 20 orders",
+        "I open \"My orders\""
+      ],
+      "expected": "The rule holds exactly at the limit",
+      "traces": [
+        "US-103/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-103",
+      "preconditions": [],
+      "tags": [
+        "US-103",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-028"
+    },
+    {
+      "title": "Behaviour at 21 orders (above maximum 20)",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Set up data so the scenario involves 21 orders",
+        "I open \"My orders\""
+      ],
+      "expected": "The limit is enforced: I see at most 20 orders per page and a link to the next page",
+      "traces": [
+        "US-103/AC2"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-103",
+      "preconditions": [],
+      "tags": [
+        "US-103",
+        "boundary"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-029"
+    },
+    {
+      "title": "Verify I see an \"Access denied\" message and no order details",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "I open the order page URL of a different customer"
+      ],
+      "expected": "I see an \"Access denied\" message and no order details",
+      "traces": [
+        "US-103/AC3"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-103",
+      "preconditions": [
+        "I am logged in as one customer"
+      ],
+      "tags": [
+        "US-103",
+        "positive"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-030"
+    },
+    {
+      "title": "Rule is enforced: Another customer's order is not visible",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Go to the 'View order history' journey",
+        "Attempt the action the rule forbids"
+      ],
+      "expected": "The message \"Access denied\" is shown",
+      "traces": [
+        "US-103/AC3"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-103",
+      "preconditions": [],
+      "tags": [
+        "US-103",
+        "negative"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-031"
+    },
+    {
+      "title": "Changing the record id in the URL does not expose another customer's data",
+      "type": "security",
+      "priority": "high",
+      "steps": [
+        "Log in as customer A",
+        "Open a URL containing customer B's record id"
+      ],
+      "expected": "Access is denied and no data belonging to customer B is shown",
+      "traces": [
+        "US-103/AC3"
+      ],
+      "source_kind": "story",
+      "source_ref": "US-103",
+      "preconditions": [],
+      "tags": [
+        "US-103",
+        "security"
+      ],
+      "request": null,
+      "expect": null,
+      "id": "TC-032"
+    },
+    {
+      "title": "Health check succeeds with valid input",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "Send GET /health with valid parameters and body"
+      ],
+      "expected": "Response status is 200",
+      "traces": [
+        "GET /health",
+        "GET /health 200"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "GET /health",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "positive"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/health",
+        "path_params": {},
+        "query": {},
+        "body": null,
+        "auth": "none"
+      },
+      "expect": {
+        "status": 200,
+        "body_keys": [
+          "status"
+        ]
+      },
+      "id": "TC-033"
+    },
+    {
+      "title": "List books succeeds with valid input",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "Send GET /books with valid parameters and body"
+      ],
+      "expected": "Response status is 200",
+      "traces": [
+        "GET /books",
+        "GET /books 200"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "GET /books",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "positive"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": null,
+        "auth": "none"
+      },
+      "expect": {
+        "status": 200,
+        "body_type": "array"
+      },
+      "id": "TC-034"
+    },
+    {
+      "title": "List books: query limit at minimum (1) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send GET /books with limit=1"
+      ],
+      "expected": "Response status is 200",
+      "traces": [
+        "GET /books",
+        "GET /books 200"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "GET /books",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/books",
+        "path_params": {},
+        "query": {
+          "limit": 1
+        },
+        "body": null,
+        "auth": "none"
+      },
+      "expect": {
+        "status": 200,
+        "body_type": "array"
+      },
+      "id": "TC-035"
+    },
+    {
+      "title": "List books: query limit below minimum (1) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send GET /books with limit=0"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "GET /books",
+        "GET /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "GET /books",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/books",
+        "path_params": {},
+        "query": {
+          "limit": 0
+        },
+        "body": null,
+        "auth": "none"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-036"
+    },
+    {
+      "title": "List books: query limit at maximum (100) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send GET /books with limit=100"
+      ],
+      "expected": "Response status is 200",
+      "traces": [
+        "GET /books",
+        "GET /books 200"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "GET /books",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/books",
+        "path_params": {},
+        "query": {
+          "limit": 100
+        },
+        "body": null,
+        "auth": "none"
+      },
+      "expect": {
+        "status": 200,
+        "body_type": "array"
+      },
+      "id": "TC-037"
+    },
+    {
+      "title": "List books: query limit above maximum (100) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send GET /books with limit=101"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "GET /books",
+        "GET /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "GET /books",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/books",
+        "path_params": {},
+        "query": {
+          "limit": 101
+        },
+        "body": null,
+        "auth": "none"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-038"
+    },
+    {
+      "title": "Add a book to the catalogue succeeds with valid input",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "Send POST /books with valid parameters and body"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /books",
+        "POST /books 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "positive"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "stock",
+          "format"
+        ]
+      },
+      "id": "TC-039"
+    },
+    {
+      "title": "Add a book to the catalogue is rejected when required field 'title' is missing",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books without 'title' in the body"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-040"
+    },
+    {
+      "title": "Add a book to the catalogue is rejected when 'title' has the wrong type",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with a int for 'title'"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": 12345,
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-041"
+    },
+    {
+      "title": "Add a book to the catalogue is rejected when required field 'author' is missing",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books without 'author' in the body"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-042"
+    },
+    {
+      "title": "Add a book to the catalogue is rejected when 'author' has the wrong type",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with a int for 'author'"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": 12345,
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-043"
+    },
+    {
+      "title": "Add a book to the catalogue is rejected when required field 'price' is missing",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books without 'price' in the body"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-044"
+    },
+    {
+      "title": "Add a book to the catalogue is rejected when 'price' has the wrong type",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with a str for 'price'"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": "not-a-number",
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-045"
+    },
+    {
+      "title": "Add a book to the catalogue is rejected when 'format' is not an allowed value",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with an unknown 'format'"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 25,
+          "format": "not-a-valid-option"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-046"
+    },
+    {
+      "title": "Add a book to the catalogue: 'title' at minimum length (1) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'title' at minimum length"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /books",
+        "POST /books 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "x",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "stock",
+          "format"
+        ]
+      },
+      "id": "TC-047"
+    },
+    {
+      "title": "Add a book to the catalogue: 'title' below minimum length (1) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'title' below minimum length"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-048"
+    },
+    {
+      "title": "Add a book to the catalogue: 'title' at maximum length (120) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'title' at maximum length"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /books",
+        "POST /books 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "stock",
+          "format"
+        ]
+      },
+      "id": "TC-049"
+    },
+    {
+      "title": "Add a book to the catalogue: 'title' above maximum length (120) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'title' above maximum length"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-050"
+    },
+    {
+      "title": "Add a book to the catalogue: 'author' at minimum length (1) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'author' at minimum length"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /books",
+        "POST /books 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "x",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "stock",
+          "format"
+        ]
+      },
+      "id": "TC-051"
+    },
+    {
+      "title": "Add a book to the catalogue: 'author' below minimum length (1) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'author' below minimum length"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-052"
+    },
+    {
+      "title": "Add a book to the catalogue: 'author' at maximum length (80) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'author' at maximum length"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /books",
+        "POST /books 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "stock",
+          "format"
+        ]
+      },
+      "id": "TC-053"
+    },
+    {
+      "title": "Add a book to the catalogue: 'author' above maximum length (80) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'author' above maximum length"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-054"
+    },
+    {
+      "title": "Add a book to the catalogue: 'price' at minimum (0.01) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'price' at minimum"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /books",
+        "POST /books 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 0.01,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "stock",
+          "format"
+        ]
+      },
+      "id": "TC-055"
+    },
+    {
+      "title": "Add a book to the catalogue: 'price' below minimum (0.01) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'price' below minimum"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 0.0,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-056"
+    },
+    {
+      "title": "Add a book to the catalogue: 'price' at maximum (1000) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'price' at maximum"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /books",
+        "POST /books 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 1000,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "stock",
+          "format"
+        ]
+      },
+      "id": "TC-057"
+    },
+    {
+      "title": "Add a book to the catalogue: 'price' above maximum (1000) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'price' above maximum"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 1000.01,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-058"
+    },
+    {
+      "title": "Add a book to the catalogue: 'stock' at minimum (0) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'stock' at minimum"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /books",
+        "POST /books 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 0,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "stock",
+          "format"
+        ]
+      },
+      "id": "TC-059"
+    },
+    {
+      "title": "Add a book to the catalogue: 'stock' below minimum (0) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'stock' below minimum"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": -1,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-060"
+    },
+    {
+      "title": "Add a book to the catalogue: 'stock' at maximum (10000) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'stock' at maximum"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /books",
+        "POST /books 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 10000,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "stock",
+          "format"
+        ]
+      },
+      "id": "TC-061"
+    },
+    {
+      "title": "Add a book to the catalogue: 'stock' above maximum (10000) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /books with 'stock' above maximum"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /books",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 10001,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-062"
+    },
+    {
+      "title": "Add a book to the catalogue is refused without a token",
+      "type": "security",
+      "priority": "high",
+      "steps": [
+        "Send POST /books without a token"
+      ],
+      "expected": "Response status is 401",
+      "traces": [
+        "POST /books",
+        "POST /books 401"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "security"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "none"
+      },
+      "expect": {
+        "status": 401
+      },
+      "id": "TC-063"
+    },
+    {
+      "title": "Add a book to the catalogue is refused with an invalid token",
+      "type": "security",
+      "priority": "high",
+      "steps": [
+        "Send POST /books with an invalid token"
+      ],
+      "expected": "Response status is 401",
+      "traces": [
+        "POST /books",
+        "POST /books 401"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "security"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Wuthering Heights",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "invalid"
+      },
+      "expect": {
+        "status": 401
+      },
+      "id": "TC-064"
+    },
+    {
+      "title": "Add a book to the catalogue handles an injection payload in 'title' without a server error",
+      "type": "security",
+      "priority": "high",
+      "steps": [
+        "Send POST /books with an SQL injection string in 'title'"
+      ],
+      "expected": "Response status is one of [201, 400] (never a server error)",
+      "traces": [
+        "POST /books",
+        "POST /books 201",
+        "POST /books 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /books",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "security"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/books",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "title": "Robert'); DROP TABLE books;--",
+          "author": "Emily Bronte",
+          "price": 8.99,
+          "stock": 25,
+          "format": "paperback"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status_in": [
+          201,
+          400
+        ]
+      },
+      "id": "TC-065"
+    },
+    {
+      "title": "Get a book by id succeeds with valid input",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "Send GET /books/{bookId} with valid parameters and body"
+      ],
+      "expected": "Response status is 200",
+      "traces": [
+        "GET /books/{bookId}",
+        "GET /books/{bookId} 200"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "GET /books/{bookId}",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "positive"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/books/{bookId}",
+        "path_params": {
+          "bookId": 1
+        },
+        "query": {},
+        "body": null,
+        "auth": "none"
+      },
+      "expect": {
+        "status": 200,
+        "body_keys": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "stock",
+          "format"
+        ]
+      },
+      "id": "TC-066"
+    },
+    {
+      "title": "Get a book by id returns 404 for a non-existent bookId",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send GET /books/{bookId} with bookId=999999"
+      ],
+      "expected": "Response status is 404",
+      "traces": [
+        "GET /books/{bookId}",
+        "GET /books/{bookId} 404"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "GET /books/{bookId}",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/books/{bookId}",
+        "path_params": {
+          "bookId": 999999
+        },
+        "query": {},
+        "body": null,
+        "auth": "none"
+      },
+      "expect": {
+        "status": 404
+      },
+      "id": "TC-067"
+    },
+    {
+      "title": "Remove a book from the catalogue succeeds with valid input",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "Send DELETE /books/{bookId} with valid parameters and body"
+      ],
+      "expected": "Response status is 204",
+      "traces": [
+        "DELETE /books/{bookId}",
+        "DELETE /books/{bookId} 204"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "DELETE /books/{bookId}",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "positive"
+      ],
+      "request": {
+        "method": "DELETE",
+        "path": "/books/{bookId}",
+        "path_params": {
+          "bookId": 2
+        },
+        "query": {},
+        "body": null,
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 204
+      },
+      "id": "TC-068"
+    },
+    {
+      "title": "Remove a book from the catalogue returns 404 for a non-existent bookId",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send DELETE /books/{bookId} with bookId=999999"
+      ],
+      "expected": "Response status is 404",
+      "traces": [
+        "DELETE /books/{bookId}",
+        "DELETE /books/{bookId} 404"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "DELETE /books/{bookId}",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "DELETE",
+        "path": "/books/{bookId}",
+        "path_params": {
+          "bookId": 999999
+        },
+        "query": {},
+        "body": null,
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 404
+      },
+      "id": "TC-069"
+    },
+    {
+      "title": "Remove a book from the catalogue is refused without a token",
+      "type": "security",
+      "priority": "high",
+      "steps": [
+        "Send DELETE /books/{bookId} without a token"
+      ],
+      "expected": "Response status is 401",
+      "traces": [
+        "DELETE /books/{bookId}",
+        "DELETE /books/{bookId} 401"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "DELETE /books/{bookId}",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "security"
+      ],
+      "request": {
+        "method": "DELETE",
+        "path": "/books/{bookId}",
+        "path_params": {
+          "bookId": 2
+        },
+        "query": {},
+        "body": null,
+        "auth": "none"
+      },
+      "expect": {
+        "status": 401
+      },
+      "id": "TC-070"
+    },
+    {
+      "title": "Remove a book from the catalogue is refused with an invalid token",
+      "type": "security",
+      "priority": "high",
+      "steps": [
+        "Send DELETE /books/{bookId} with an invalid token"
+      ],
+      "expected": "Response status is 401",
+      "traces": [
+        "DELETE /books/{bookId}",
+        "DELETE /books/{bookId} 401"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "DELETE /books/{bookId}",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "security"
+      ],
+      "request": {
+        "method": "DELETE",
+        "path": "/books/{bookId}",
+        "path_params": {
+          "bookId": 2
+        },
+        "query": {},
+        "body": null,
+        "auth": "invalid"
+      },
+      "expect": {
+        "status": 401
+      },
+      "id": "TC-071"
+    },
+    {
+      "title": "Place an order for a book succeeds with valid input",
+      "type": "positive",
+      "priority": "high",
+      "steps": [
+        "Send POST /orders with valid parameters and body"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /orders",
+        "POST /orders 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "positive"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": 1,
+          "quantity": 2
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "book_id",
+          "quantity",
+          "total"
+        ]
+      },
+      "id": "TC-072"
+    },
+    {
+      "title": "Place an order for a book is rejected when required field 'book_id' is missing",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /orders without 'book_id' in the body"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /orders",
+        "POST /orders 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "quantity": 2
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-073"
+    },
+    {
+      "title": "Place an order for a book is rejected when 'book_id' has the wrong type",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /orders with a str for 'book_id'"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /orders",
+        "POST /orders 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": "not-a-number",
+          "quantity": 2
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-074"
+    },
+    {
+      "title": "Place an order for a book is rejected when required field 'quantity' is missing",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /orders without 'quantity' in the body"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /orders",
+        "POST /orders 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": 1
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-075"
+    },
+    {
+      "title": "Place an order for a book is rejected when 'quantity' has the wrong type",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /orders with a str for 'quantity'"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /orders",
+        "POST /orders 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": 1,
+          "quantity": "not-a-number"
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-076"
+    },
+    {
+      "title": "Place an order for a book: 'book_id' below minimum (1) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /orders with 'book_id' below minimum"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /orders",
+        "POST /orders 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": 0,
+          "quantity": 2
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-077"
+    },
+    {
+      "title": "Place an order for a book: 'quantity' at minimum (1) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /orders with 'quantity' at minimum"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /orders",
+        "POST /orders 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": 1,
+          "quantity": 1
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "book_id",
+          "quantity",
+          "total"
+        ]
+      },
+      "id": "TC-078"
+    },
+    {
+      "title": "Place an order for a book: 'quantity' below minimum (1) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /orders with 'quantity' below minimum"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /orders",
+        "POST /orders 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": 1,
+          "quantity": 0
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-079"
+    },
+    {
+      "title": "Place an order for a book: 'quantity' at maximum (10) is accepted",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /orders with 'quantity' at maximum"
+      ],
+      "expected": "Response status is 201",
+      "traces": [
+        "POST /orders",
+        "POST /orders 201"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": 1,
+          "quantity": 10
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 201,
+        "body_keys": [
+          "id",
+          "book_id",
+          "quantity",
+          "total"
+        ]
+      },
+      "id": "TC-080"
+    },
+    {
+      "title": "Place an order for a book: 'quantity' above maximum (10) is rejected",
+      "type": "boundary",
+      "priority": "medium",
+      "steps": [
+        "Send POST /orders with 'quantity' above maximum"
+      ],
+      "expected": "Response status is 400",
+      "traces": [
+        "POST /orders",
+        "POST /orders 400"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "boundary"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": 1,
+          "quantity": 11
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 400
+      },
+      "id": "TC-081"
+    },
+    {
+      "title": "Place an order for a book returns 404 when 'book_id' does not exist",
+      "type": "negative",
+      "priority": "medium",
+      "steps": [
+        "Send POST /orders with 'book_id'=999999"
+      ],
+      "expected": "Response status is 404",
+      "traces": [
+        "POST /orders",
+        "POST /orders 404"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [
+        "A valid bearer token is available"
+      ],
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": 999999,
+          "quantity": 2
+        },
+        "auth": "valid"
+      },
+      "expect": {
+        "status": 404
+      },
+      "id": "TC-082"
+    },
+    {
+      "title": "Place an order for a book is refused without a token",
+      "type": "security",
+      "priority": "high",
+      "steps": [
+        "Send POST /orders without a token"
+      ],
+      "expected": "Response status is 401",
+      "traces": [
+        "POST /orders",
+        "POST /orders 401"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "security"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": 1,
+          "quantity": 2
+        },
+        "auth": "none"
+      },
+      "expect": {
+        "status": 401
+      },
+      "id": "TC-083"
+    },
+    {
+      "title": "Place an order for a book is refused with an invalid token",
+      "type": "security",
+      "priority": "high",
+      "steps": [
+        "Send POST /orders with an invalid token"
+      ],
+      "expected": "Response status is 401",
+      "traces": [
+        "POST /orders",
+        "POST /orders 401"
+      ],
+      "source_kind": "openapi",
+      "source_ref": "POST /orders",
+      "preconditions": [],
+      "tags": [
+        "api",
+        "security"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "book_id": 1,
+          "quantity": 2
+        },
+        "auth": "invalid"
+      },
+      "expect": {
+        "status": 401
+      },
+      "id": "TC-084"
+    }
+  ],
+  "rejected": [],
+  "duplicates": [
+    {
+      "dropped": "Injection payloads in the password field are rejected or safely escaped",
+      "kept": "Injection payloads in the password field are rejected or safely escaped",
+      "reason": "identical"
+    },
+    {
+      "dropped": "Injection payloads in the email address field are rejected or safely escaped",
+      "kept": "Injection payloads in the email address field are rejected or safely escaped",
+      "reason": "identical"
+    },
+    {
+      "dropped": "Injection payloads in the password field are rejected or safely escaped",
+      "kept": "Injection payloads in the password field are rejected or safely escaped",
+      "reason": "identical"
+    },
+    {
+      "dropped": "Protected steps of 'View order history' require login",
+      "kept": "Protected steps of 'View order history' require login",
+      "reason": "identical"
+    },
+    {
+      "dropped": "Place an order for a book: 'book_id' at minimum (1) is accepted",
+      "kept": "Place an order for a book succeeds with valid input",
+      "reason": "identical"
+    }
+  ]
+}

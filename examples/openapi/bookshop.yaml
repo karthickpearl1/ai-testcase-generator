@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: Bookshop demo API
+  version: 1.0.0
+  description: >
+    A small fictional API bundled with the project so generated tests can be executed and
+    mutation-tested locally. Implemented in src/ai_testgen/demo_api/server.py.
+servers:
+  - url: http://127.0.0.1:8000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Book:
+      type: object
+      required: [id, title, author, price, stock, format]
+      properties:
+        id: { type: integer, example: 1 }
+        title: { type: string }
+        author: { type: string }
+        price: { type: number }
+        stock: { type: integer }
+        format: { type: string, enum: [hardback, paperback, ebook] }
+    NewBook:
+      type: object
+      required: [title, author, price]
+      properties:
+        title: { type: string, minLength: 1, maxLength: 120, example: Wuthering Heights }
+        author: { type: string, minLength: 1, maxLength: 80, example: Emily Bronte }
+        price: { type: number, minimum: 0.01, maximum: 1000, example: 8.99 }
+        stock: { type: integer, minimum: 0, maximum: 10000, example: 25 }
+        format: { type: string, enum: [hardback, paperback, ebook], example: paperback }
+    NewOrder:
+      type: object
+      required: [book_id, quantity]
+      properties:
+        book_id: { type: integer, minimum: 1, example: 1 }
+        quantity: { type: integer, minimum: 1, maximum: 10, example: 2 }
+    Order:
+      type: object
+      required: [id, book_id, quantity, total]
+      properties:
+        id: { type: integer }
+        book_id: { type: integer }
+        quantity: { type: integer }
+        total: { type: number }
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string }
+  responses:
+    BadRequest:
+      description: Validation failed
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    Unauthorised:
+      description: Missing or invalid bearer token
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      summary: Health check
+      responses:
+        "200":
+          description: Service is up
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties:
+                  status: { type: string }
+  /books:
+    get:
+      operationId: listBooks
+      summary: List books
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema: { type: integer, minimum: 1, maximum: 100, example: 20 }
+      responses:
+        "200":
+          description: A page of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Book" }
+        "400": { $ref: "#/components/responses/BadRequest" }
+    post:
+      operationId: createBook
+      summary: Add a book to the catalogue
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/NewBook" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Book" }
+        "400": { $ref: "#/components/responses/BadRequest" }
+        "401": { $ref: "#/components/responses/Unauthorised" }
+  /books/{bookId}:
+    parameters:
+      - name: bookId
+        in: path
+        required: true
+        schema: { type: integer, minimum: 1, example: 1 }
+    get:
+      operationId: getBook
+      summary: Get a book by id
+      responses:
+        "200":
+          description: The book
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Book" }
+        "404": { $ref: "#/components/responses/NotFound" }
+    delete:
+      operationId: deleteBook
+      summary: Remove a book from the catalogue
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          schema: { type: integer, minimum: 1, example: 2 }
+      responses:
+        "204": { description: Deleted }
+        "401": { $ref: "#/components/responses/Unauthorised" }
+        "404": { $ref: "#/components/responses/NotFound" }
+  /orders:
+    post:
+      operationId: createOrder
+      summary: Place an order for a book
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/NewOrder" }
+      responses:
+        "201":
+          description: Order placed
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Order" }
+        "400": { $ref: "#/components/responses/BadRequest" }
+        "401": { $ref: "#/components/responses/Unauthorised" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "409":
+          description: Not enough stock
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }

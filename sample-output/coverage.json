@@ -1,0 +1,230 @@
+{
+  "acceptance_criteria": {
+    "US-101/AC1": [
+      "TC-001"
+    ],
+    "US-101/AC2": [
+      "TC-002",
+      "TC-003",
+      "TC-004",
+      "TC-005",
+      "TC-006"
+    ],
+    "US-101/AC3": [
+      "TC-007"
+    ],
+    "US-101/AC4": [
+      "TC-008",
+      "TC-009"
+    ],
+    "US-102/AC1": [
+      "TC-010",
+      "TC-011",
+      "TC-012"
+    ],
+    "US-102/AC2": [
+      "TC-012",
+      "TC-013",
+      "TC-014",
+      "TC-015",
+      "TC-016",
+      "TC-017"
+    ],
+    "US-102/AC3": [
+      "TC-011",
+      "TC-018"
+    ],
+    "US-102/AC4": [
+      "TC-019",
+      "TC-020",
+      "TC-021",
+      "TC-022",
+      "TC-023"
+    ],
+    "US-102/AC5": [
+      "TC-012",
+      "TC-024"
+    ],
+    "US-103/AC1": [
+      "TC-025",
+      "TC-026"
+    ],
+    "US-103/AC2": [
+      "TC-026",
+      "TC-027",
+      "TC-028",
+      "TC-029"
+    ],
+    "US-103/AC3": [
+      "TC-030",
+      "TC-031",
+      "TC-032"
+    ]
+  },
+  "endpoints": {
+    "GET /health": [
+      "TC-033"
+    ],
+    "GET /books": [
+      "TC-034",
+      "TC-035",
+      "TC-036",
+      "TC-037",
+      "TC-038"
+    ],
+    "POST /books": [
+      "TC-039",
+      "TC-040",
+      "TC-041",
+      "TC-042",
+      "TC-043",
+      "TC-044",
+      "TC-045",
+      "TC-046",
+      "TC-047",
+      "TC-048",
+      "TC-049",
+      "TC-050",
+      "TC-051",
+      "TC-052",
+      "TC-053",
+      "TC-054",
+      "TC-055",
+      "TC-056",
+      "TC-057",
+      "TC-058",
+      "TC-059",
+      "TC-060",
+      "TC-061",
+      "TC-062",
+      "TC-063",
+      "TC-064",
+      "TC-065"
+    ],
+    "GET /books/{bookId}": [
+      "TC-066",
+      "TC-067"
+    ],
+    "DELETE /books/{bookId}": [
+      "TC-068",
+      "TC-069",
+      "TC-070",
+      "TC-071"
+    ],
+    "POST /orders": [
+      "TC-072",
+      "TC-073",
+      "TC-074",
+      "TC-075",
+      "TC-076",
+      "TC-077",
+      "TC-078",
+      "TC-079",
+      "TC-080",
+      "TC-081",
+      "TC-082",
+      "TC-083",
+      "TC-084"
+    ]
+  },
+  "responses": {
+    "GET /health 200": [
+      "TC-033"
+    ],
+    "GET /books 200": [
+      "TC-034",
+      "TC-035",
+      "TC-037"
+    ],
+    "GET /books 400": [
+      "TC-036",
+      "TC-038"
+    ],
+    "POST /books 201": [
+      "TC-039",
+      "TC-047",
+      "TC-049",
+      "TC-051",
+      "TC-053",
+      "TC-055",
+      "TC-057",
+      "TC-059",
+      "TC-061",
+      "TC-065"
+    ],
+    "POST /books 400": [
+      "TC-040",
+      "TC-041",
+      "TC-042",
+      "TC-043",
+      "TC-044",
+      "TC-045",
+      "TC-046",
+      "TC-048",
+      "TC-050",
+      "TC-052",
+      "TC-054",
+      "TC-056",
+      "TC-058",
+      "TC-060",
+      "TC-062",
+      "TC-065"
+    ],
+    "POST /books 401": [
+      "TC-063",
+      "TC-064"
+    ],
+    "GET /books/{bookId} 200": [
+      "TC-066"
+    ],
+    "GET /books/{bookId} 404": [
+      "TC-067"
+    ],
+    "DELETE /books/{bookId} 204": [
+      "TC-068"
+    ],
+    "DELETE /books/{bookId} 401": [
+      "TC-070",
+      "TC-071"
+    ],
+    "DELETE /books/{bookId} 404": [
+      "TC-069"
+    ],
+    "POST /orders 201": [
+      "TC-072",
+      "TC-078",
+      "TC-080"
+    ],
+    "POST /orders 400": [
+      "TC-073",
+      "TC-074",
+      "TC-075",
+      "TC-076",
+      "TC-077",
+      "TC-079",
+      "TC-081"
+    ],
+    "POST /orders 401": [
+      "TC-083",
+      "TC-084"
+    ],
+    "POST /orders 404": [
+      "TC-082"
+    ],
+    "POST /orders 409": []
+  },
+  "summary": {
+    "ac_coverage": 1.0,
+    "endpoint_coverage": 1.0,
+    "response_coverage": 0.9375,
+    "uncovered": [
+      "POST /orders 409"
+    ],
+    "by_type": {
+      "boundary": 37,
+      "negative": 18,
+      "positive": 15,
+      "security": 14
+    }
+  }
+}

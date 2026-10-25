@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test generation report: {{ report.run.name }}</title>
+<style>
+  :root { --ink:#1f2933; --muted:#616e7c; --line:#e4e7eb; --bg:#f7f8fa; --ok:#16794c; --bad:#b42318; --okbg:#e7f6ee; --badbg:#fdecea; --warnbg:#fff4e5; --warn:#8a4b00; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:14px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:var(--ink); background:var(--bg); }
+  main { max-width:1200px; margin:0 auto; padding:28px 24px 48px; }
+  h1 { font-size:22px; margin:0 0 4px; } h2 { font-size:16px; margin:28px 0 10px; }
+  .meta { color:var(--muted); } .meta code { background:#eef0f3; padding:1px 5px; border-radius:4px; }
+  .banner { margin:18px 0; padding:12px 16px; border-radius:8px; font-weight:600; }
+  .banner.ok { background:var(--okbg); color:var(--ok); } .banner.bad { background:var(--badbg); color:var(--bad); }
+  .banner ul { margin:6px 0 0; padding-left:20px; font-weight:400; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fill, minmax(165px, 1fr)); gap:12px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px 14px; }
+  .card .label { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+  .card .value { font-size:22px; font-weight:600; margin-top:2px; }
+  .card .sub { color:var(--muted); font-size:12px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); }
+  th, td { padding:7px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+  th { background:#f1f3f5; font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); }
+  td.ids { font-family:ui-monospace, Menlo, Consolas, monospace; font-size:12px; color:var(--muted); }
+  tr.gap td { background:var(--warnbg); color:var(--warn); }
+  .badge { display:inline-block; padding:1px 8px; border-radius:10px; font-size:12px; font-weight:600; }
+  .badge.ok { background:var(--okbg); color:var(--ok); } .badge.bad { background:var(--badbg); color:var(--bad); }
+  .type { display:inline-block; border-radius:4px; padding:0 6px; font-size:12px; background:#eef0f3; }
+  footer { margin-top:24px; color:var(--muted); font-size:12px; }
+</style>
+</head>
+<body>
+<main>
+  {% set m = report.metrics %}
+  <h1>Test generation report: {{ report.run.name }}</h1>
+  <div class="meta">Provider <code>{{ report.run.provider }}</code> · model <code>{{ report.run.model }}</code>
+    · {{ m.raw_cases }} cases proposed, {{ m.final_cases }} kept
+    · {{ report.by_type.items() | map("join", " ") | join(", ") }}</div>
+
+  <div class="banner {{ 'ok' if report.gate.passed else 'bad' }}">
+    Quality gate {{ "PASSED" if report.gate.passed else "FAILED" }}
+    {% set failed = report.gate.checks | rejectattr("passed") | list %}
+    {% if failed %}<ul>{% for c in failed %}<li>{{ c.message }}</li>{% endfor %}</ul>{% endif %}
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="label">Schema validity</div><div class="value">{{ fmt("schema_validity", m.schema_validity) }}</div><div class="sub">{{ m.rejected_cases }} rejected</div></div>
+    <div class="card"><div class="label">Duplicates removed</div><div class="value">{{ m.duplicates_removed }}</div><div class="sub">{{ m.final_cases }} unique cases</div></div>
+    <div class="card"><div class="label">AC coverage</div><div class="value">{{ fmt("ac_coverage", m.ac_coverage) }}</div></div>
+    <div class="card"><div class="label">Endpoint coverage</div><div class="value">{{ fmt("endpoint_coverage", m.endpoint_coverage) }}</div></div>
+    <div class="card"><div class="label">Response coverage</div><div class="value">{{ fmt("response_coverage", m.response_coverage) }}</div><div class="sub">documented status codes exercised</div></div>
+    {% if m.execution_pass_rate is defined %}
+    <div class="card"><div class="label">API tests passing</div><div class="value">{{ fmt("execution_pass_rate", m.execution_pass_rate) }}</div><div class="sub">{{ m.api_tests_passed }} / {{ m.api_tests_executed }} executed</div></div>
+    {% else %}
+    <div class="card"><div class="label">API tests passing</div><div class="value">-</div><div class="sub">not executed</div></div>
+    {% endif %}
+    {% if m.mutation_score is defined %}
+    <div class="card"><div class="label">Mutation score</div><div class="value">{{ fmt("mutation_score", m.mutation_score) }}</div><div class="sub">{{ m.mutants_killed }} / {{ m.mutants }} injected bugs caught</div></div>
+    {% else %}
+    <div class="card"><div class="label">Mutation score</div><div class="value">-</div><div class="sub">not measured</div></div>
+    {% endif %}
+    <div class="card"><div class="label">Playwright skeletons</div><div class="value">{{ m.playwright_specs }}</div><div class="sub">{{ m.story_cases }} UI cases</div></div>
+  </div>
+
+  {% if report.evaluation.mutants %}
+  <h2>Mutation testing</h2>
+  <table>
+    <thead><tr><th>Injected bug</th><th>Result</th><th>Caught by</th></tr></thead>
+    <tbody>
+    {% for mu in report.evaluation.mutants %}
+      <tr><td><strong>{{ mu.name }}</strong><br><span class="meta">{{ mu.description }}</span></td>
+        <td><span class="badge {{ 'ok' if mu.killed else 'bad' }}">{{ "KILLED" if mu.killed else "SURVIVED" }}</span></td>
+        <td class="ids">{{ mu.killed_by | join(", ") or "-" }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  <div class="grid2">
+    <div>
+      <h2>Acceptance criteria → tests</h2>
+      <table><thead><tr><th>Criterion</th><th>Tests</th></tr></thead><tbody>
+      {% for ac, ids in coverage.acceptance_criteria.items() %}
+        <tr class="{{ '' if ids else 'gap' }}"><td>{{ ac }}</td><td class="ids">{{ ids | join(", ") or "not covered" }}</td></tr>
+      {% endfor %}
+      </tbody></table>
+    </div>
+    <div>
+      <h2>API responses → tests</h2>
+      <table><thead><tr><th>Response</th><th>Tests</th></tr></thead><tbody>
+      {% for rid, ids in coverage.responses.items() %}
+        <tr class="{{ '' if ids else 'gap' }}"><td>{{ rid }}</td><td class="ids">{{ ids | join(", ") or "not covered" }}</td></tr>
+      {% endfor %}
+      </tbody></table>
+    </div>
+  </div>
+
+  {% if report.evaluation.failing_tests %}
+  <h2>Generated tests failing against the API</h2>
+  <table><tbody>{% for tc, msg in report.evaluation.failing_tests.items() %}<tr><td>{{ tc }}</td><td>{{ msg }}</td></tr>{% endfor %}</tbody></table>
+  {% endif %}
+
+  {% if report.rejected %}
+  <h2>Rejected model output ({{ report.rejected | length }})</h2>
+  <table><thead><tr><th>Source</th><th>Title</th><th>Why</th></tr></thead><tbody>
+  {% for r in report.rejected %}<tr><td>{{ r.source }}</td><td>{{ r.title }}</td><td>{{ r.errors | join("; ") }}</td></tr>{% endfor %}
+  </tbody></table>
+  {% endif %}
+
+  <h2>Generated cases ({{ cases | length }})</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Type</th><th>Title</th><th>Source</th><th>Traces</th></tr></thead>
+    <tbody>
+    {% for c in cases %}
+      <tr><td class="ids">{{ c.id }}</td><td><span class="type">{{ c.type }}</span></td><td>{{ c.title }}</td><td>{{ c.source_ref }}</td><td class="ids">{{ c.traces | join(", ") }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <footer>ai-testcase-generator {{ report.run.version }}</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,57 @@
+# Manually triggered generation against a real model. Never part of PR checks: it costs
+# money, needs secrets and is not deterministic. The output is uploaded for review and the
+# same quality gate is applied, so a model can be compared with the mock baseline.
+name: Live generation
+
+on:
+  workflow_dispatch:
+    inputs:
+      provider:
+        description: LLM provider
+        type: choice
+        options: [openai, azure_openai, bedrock]
+        default: openai
+
+permissions:
+  contents: read
+  id-token: write # for AWS OIDC when using Bedrock
+
+jobs:
+  live-generation:
+    runs-on: ubuntu-latest
+    environment: live-generation
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - run: pip install -e ".[openai,bedrock]"
+
+      - name: Configure AWS credentials
+        if: inputs.provider == 'bedrock'
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION || 'eu-west-2' }}
+
+      - name: Generate and gate
+        env:
+          TESTGEN_PROVIDER: ${{ inputs.provider }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+          AZURE_OPENAI_ENDPOINT: ${{ vars.AZURE_OPENAI_ENDPOINT }}
+          AZURE_OPENAI_DEPLOYMENT: ${{ vars.AZURE_OPENAI_DEPLOYMENT }}
+          AZURE_OPENAI_API_VERSION: ${{ vars.AZURE_OPENAI_API_VERSION }}
+          BEDROCK_MODEL_ID: ${{ vars.BEDROCK_MODEL_ID }}
+        run: testgen run --gate -o out/live
+
+      - name: Publish report to the job summary
+        if: always()
+        run: cat out/live/report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: live-generation-output
+          path: out/
